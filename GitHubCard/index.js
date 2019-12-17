@@ -3,6 +3,18 @@
            https://api.github.com/users/<your name>
 */
 
+axios
+  .get('https://api.github.com/users/Tatyanadz')
+  
+  .then(response => {
+    followerCard(response.data);
+  })
+  .catch(error => {
+    console.log("Request failed", error);
+  });
+
+  
+  const entryPoint = document.querySelector('cards');
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -46,6 +58,50 @@ const followersArray = [];
 
 */
 
+function followerCard(gitData) {
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const userName = document.createElement('h3');
+  const followerName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const userBio = document.createElement('p');
+
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(followerName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(userBio);
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  userName.classList.add('name');
+  followerName.classList.add('username');
+
+  userImg.src = gitData.avatar_url;
+  userName.textContent = gitData.name;
+  followerName.textContent = gitData.followers_url;
+  location.textContent = gitData.location;
+  profileLink.textContent = gitData.html_url;
+  followers.textContent = gitData.followers;
+  following.textContent = gitData.following;
+  userBio.textContent = gitData.bio;
+  console.log(gitData);
+  console.log(card);
+
+  document.getElementsByClassName('cards')[0].appendChild(card);
+
+}
+
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -53,3 +109,5 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
